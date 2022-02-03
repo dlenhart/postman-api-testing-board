@@ -10,18 +10,30 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendResults;
+use App\Constants;
+use App\Services\ImportService;
 
 class ImportController extends Controller
 {
+    private $service;
+
+    public function __construct(ImportService $service)
+    {
+        $this->service = $service;
+    }
+
     public function import(Request $request)
     {
         if ($request->hasFile('file')) {
-            $explode = File::extractRunInfo($request->file('file'));
+            $explode = File::extractRunInfo(
+                $request->file('file')
+            );
 
             if ($explode['extension'] != 'json') {
-                return responder()
-                    ->error('incorrect_format', 'File must be that of JSON.')
-                    ->respond(400);
+                return response()->json([
+                    'message' => 'File extension is not json',
+                    'status' => 'error',
+                ], 400);
             }
 
             $application_id = $this->findApplicationOrCreate($explode['application']);
@@ -29,14 +41,24 @@ class ImportController extends Controller
             $encode = json_decode($file, true);
 
             if (!isset($encode['collection'])) {
-                return responder()
-                    ->error('incorrect_format', 'File does not appear to be a postman collection result.')
-                    ->respond(400);
+                return response()->json([
+                    'message' => 'File is not a valid json file',
+                    'status' => 'error',
+                ], 400);
             }
 
-            $resultMessages = Parser::buildResults($encode['collection']['item'], $encode);
+            $resultMessages = Parser::buildResults(
+                $encode['collection']['item'], 
+                $encode
+            );
 
-            $result = $this->insertResults($application_id, $explode['branch'], $resultMessages, $encode['run'], $file);
+            $result = $this->insertResults(
+                $application_id, 
+                $explode['branch'], 
+                $resultMessages, 
+                $encode['run'], 
+                $file
+            );
 
             if ($result) {
                 if ($request->email) {
@@ -50,19 +72,24 @@ class ImportController extends Controller
                     'result_id'         => $result
                 ];
 
-                return responder()->success($data)->respond();
+                return response()->json([
+                    'message' => 'File imported successfully',
+                    'status' => 'success',
+                    'data' => $data
+                ], 200);
             }
 
-            return responder()->error(
-                'status_not_found',
-                "Error saving record - check logs - {$explode['application']} - {$result}"
-            )
-                ->respond(500);
-        } else {
-            return responder()
-                ->error('no_file', 'No file attached.')
-                ->respond(400);
+            return response()->json([
+                'message' => "Error inserting results {$explode['application']} - {$result}" ,
+                'status' => 'error',
+            ], 500);
+
         }
+
+        return response()->json([
+            'message' => 'File not found',
+            'status' => 'error',
+        ], 400);
     }
 
     public function findApplicationOrCreate($application)
@@ -84,33 +111,33 @@ class ImportController extends Controller
     {
         try {
             $result = new Result;
-            $result->application_id = $application_id;
-            $result->branch = $branch;
-            $result->iterations_total = $stats['stats']['iterations']['total'];
-            $result->iterations_failed = $stats['stats']['iterations']['failed'];
-            $result->items_total = $stats['stats']['items']['total'];
-            $result->items_failed = $stats['stats']['items']['failed'];
-            $result->scripts_total = $stats['stats']['scripts']['total'];
-            $result->scripts_failed = $stats['stats']['scripts']['failed'];
-            $result->prerequests_total = $stats['stats']['prerequests']['total'];
-            $result->prerequests_failed = $stats['stats']['prerequests']['failed'];
-            $result->requests_total = $stats['stats']['requests']['total'];
-            $result->requests_failed = $stats['stats']['requests']['failed'];
-            $result->tests_total = $stats['stats']['tests']['total'];
-            $result->tests_failed = $stats['stats']['tests']['failed'];
-            $result->assertions_total = $stats['stats']['assertions']['total'];
-            $result->assertions_failed = $stats['stats']['assertions']['failed'];
-            $result->testScripts_total = $stats['stats']['testScripts']['total'];
-            $result->testScripts_failed = $stats['stats']['testScripts']['failed'];
-            $result->prerequestScripts_total = $stats['stats']['prerequestScripts']['total'];
-            $result->prerequestScripts_failed = $stats['stats']['prerequestScripts']['failed'];
-            $result->responseAverage = $stats['timings']['responseAverage'];
-            $result->responseMin = $stats['timings']['responseMin'];
-            $result->responseMax = $stats['timings']['responseMax'];
-            $result->started = $stats['timings']['started'];
-            $result->completed = $stats['timings']['completed'];
-            $result->duration = $stats['timings']['completed'] - $stats['timings']['started'];
-            $result->parsed_results = $parsedResults;
+            $result->application_id             = $application_id;
+            $result->branch                     = $branch;
+            $result->iterations_total           = $stats['stats']['iterations']['total'];
+            $result->iterations_failed          = $stats['stats']['iterations']['failed'];
+            $result->items_total                = $stats['stats']['items']['total'];
+            $result->items_failed               = $stats['stats']['items']['failed'];
+            $result->scripts_total              = $stats['stats']['scripts']['total'];
+            $result->scripts_failed             = $stats['stats']['scripts']['failed'];
+            $result->prerequests_total          = $stats['stats']['prerequests']['total'];
+            $result->prerequests_failed         = $stats['stats']['prerequests']['failed'];
+            $result->requests_total             = $stats['stats']['requests']['total'];
+            $result->requests_failed            = $stats['stats']['requests']['failed'];
+            $result->tests_total                = $stats['stats']['tests']['total'];
+            $result->tests_failed               = $stats['stats']['tests']['failed'];
+            $result->assertions_total           = $stats['stats']['assertions']['total'];
+            $result->assertions_failed          = $stats['stats']['assertions']['failed'];
+            $result->testScripts_total          = $stats['stats']['testScripts']['total'];
+            $result->testScripts_failed         = $stats['stats']['testScripts']['failed'];
+            $result->prerequestScripts_total    = $stats['stats']['prerequestScripts']['total'];
+            $result->prerequestScripts_failed   = $stats['stats']['prerequestScripts']['failed'];
+            $result->responseAverage            = $stats['timings']['responseAverage'];
+            $result->responseMin                = $stats['timings']['responseMin'];
+            $result->responseMax                = $stats['timings']['responseMax'];
+            $result->started                    = $stats['timings']['started'];
+            $result->completed                  = $stats['timings']['completed'];
+            $result->duration                   = $stats['timings']['completed'] - $stats['timings']['started'];
+            $result->parsed_results             = $parsedResults;
 
             $result->save();
         } catch (\Exception $e) {
