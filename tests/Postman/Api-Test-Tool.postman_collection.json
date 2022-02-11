@@ -1,0 +1,79 @@
+{
+	"info": {
+		"_postman_id": "9becb933-2264-45bb-b823-03cda61accf7",
+		"name": "Api-Test-Tool",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Import",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseJson = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 400 bad request - no file.\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response is a failure.\", function () {",
+							"    pm.expect(responseJson.success).to.eql(false);",
+							"});",
+							"",
+							"pm.test(\"Response has a error code.\", function () {",
+							"    pm.expect(responseJson.error.code).to.be.a('string');",
+							"});",
+							"",
+							"pm.test(\"Response has a message.\", function () {",
+							"    pm.expect(responseJson.error.message).to.be.a('string');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": []
+						},
+						{
+							"key": "email",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/import?email=dlenhart@gamil.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"import"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "dlenhart@gamil.com"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

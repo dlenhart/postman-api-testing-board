@@ -1,0 +1,1064 @@
+{
+  "collection": {
+    "_": {
+      "postman_id": "9becb933-2264-45bb-b823-03cda61accf7"
+    },
+    "item": [
+      {
+        "id": "5029ef2a-91bc-40a0-8bc0-2d9eefa91b64",
+        "name": "Import",
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "8000",
+            "path": [
+              "api",
+              "v1",
+              "import"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [
+              {
+                "key": "email",
+                "value": "dlenhart@gamil.com"
+              }
+            ],
+            "variable": []
+          },
+          "method": "POST",
+          "body": {
+            "mode": "formdata",
+            "formdata": [
+              {
+                "key": "file",
+                "type": "file",
+                "src": []
+              },
+              {
+                "disabled": true,
+                "key": "email",
+                "value": "",
+                "type": "text"
+              }
+            ]
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "c9a4b4d5-433b-4bc4-b398-90698a10a36c",
+              "type": "text/javascript",
+              "exec": [
+                "const responseJson = pm.response.json();",
+                "",
+                "pm.test(\"Status code is 400 bad request - no file.\", function () {",
+                "    pm.response.to.have.status(400);",
+                "});",
+                "",
+                "pm.test(\"Response is a failure.\", function () {",
+                "    pm.expect(responseJson.success).to.eql(false);",
+                "});",
+                "",
+                "pm.test(\"Response has a error code.\", function () {",
+                "    pm.expect(responseJson.error.code).to.be.a('string');",
+                "});",
+                "",
+                "pm.test(\"Response has a message.\", function () {",
+                "    pm.expect(responseJson.error.message).to.be.a('string');",
+                "});"
+              ],
+              "_lastExecutionId": "59acab2a-d863-43cb-9c84-f103cd6ec92f"
+            }
+          }
+        ]
+      }
+    ],
+    "event": [],
+    "variable": [],
+    "info": {
+      "_postman_id": "9becb933-2264-45bb-b823-03cda61accf7",
+      "name": "Api-Test-Tool",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    }
+  },
+  "environment": {
+    "id": "fd6768e4-1f0e-4d98-bb5d-fd497d012d52",
+    "values": []
+  },
+  "globals": {
+    "id": "cb07295a-e7ff-45d9-9023-662f1b2f8ae8",
+    "values": []
+  },
+  "run": {
+    "stats": {
+      "iterations": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "items": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "scripts": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequests": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "requests": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "tests": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "assertions": {
+        "total": 4,
+        "pending": 0,
+        "failed": 3
+      },
+      "testScripts": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequestScripts": {
+        "total": 0,
+        "pending": 0,
+        "failed": 0
+      }
+    },
+    "timings": {
+      "responseAverage": 71,
+      "responseMin": 71,
+      "responseMax": 71,
+      "responseSd": 0,
+      "dnsAverage": 0,
+      "dnsMin": 0,
+      "dnsMax": 0,
+      "dnsSd": 0,
+      "firstByteAverage": 0,
+      "firstByteMin": 0,
+      "firstByteMax": 0,
+      "firstByteSd": 0,
+      "started": 1644428309064,
+      "completed": 1644428309179
+    },
+    "executions": [
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "a68c4d27-acf0-4b03-b899-59d11fe4775d",
+          "httpRequestId": "d156b85c-9471-43ab-9b94-e25c6e5d1171"
+        },
+        "item": {
+          "id": "5029ef2a-91bc-40a0-8bc0-2d9eefa91b64",
+          "name": "Import",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "import"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [
+                {
+                  "key": "email",
+                  "value": "dlenhart@gamil.com"
+                }
+              ],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "disabled": true,
+                  "key": "email",
+                  "value": "",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "c9a4b4d5-433b-4bc4-b398-90698a10a36c",
+                "type": "text/javascript",
+                "exec": [
+                  "const responseJson = pm.response.json();",
+                  "",
+                  "pm.test(\"Status code is 400 bad request - no file.\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is a failure.\", function () {",
+                  "    pm.expect(responseJson.success).to.eql(false);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a error code.\", function () {",
+                  "    pm.expect(responseJson.error.code).to.be.a('string');",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a message.\", function () {",
+                  "    pm.expect(responseJson.error.message).to.be.a('string');",
+                  "});"
+                ],
+                "_lastExecutionId": "59acab2a-d863-43cb-9c84-f103cd6ec92f"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "8000",
+            "path": [
+              "api",
+              "v1",
+              "import"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [
+              {
+                "key": "email",
+                "value": "dlenhart@gamil.com"
+              }
+            ],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.29.0",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "70a67d20-7ba0-4912-9f8b-9f8dda8c3131",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:8000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "172",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "formdata",
+            "formdata": [
+              {
+                "key": "file",
+                "type": "file",
+                "src": [],
+                "fileName": ""
+              },
+              {
+                "disabled": true,
+                "key": "email",
+                "value": "",
+                "type": "text"
+              }
+            ]
+          }
+        },
+        "response": {
+          "id": "080d604b-d87f-474b-bbda-0395ae336d19",
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Host",
+              "value": "localhost:8000"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 09 Feb 2022 17:38:29 GMT"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 09 Feb 2022 17:38:29 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "PHP/8.0.12"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-RateLimit-Limit",
+              "value": "60"
+            },
+            {
+              "key": "X-RateLimit-Remaining",
+              "value": "59"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              70,
+              105,
+              108,
+              101,
+              32,
+              110,
+              111,
+              116,
+              32,
+              102,
+              111,
+              117,
+              110,
+              100,
+              34,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 71,
+          "responseSize": 45
+        },
+        "id": "5029ef2a-91bc-40a0-8bc0-2d9eefa91b64",
+        "assertions": [
+          {
+            "assertion": "Status code is 400 bad request - no file.",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is a failure.",
+            "skipped": false,
+            "error": {
+              "name": "AssertionError",
+              "index": 1,
+              "test": "Response is a failure.",
+              "message": "expected undefined to deeply equal false",
+              "stack": "AssertionError: expected undefined to deeply equal false\n   at Object.eval sandbox-script.js:2:1)"
+            }
+          },
+          {
+            "assertion": "Response has a error code.",
+            "skipped": false,
+            "error": {
+              "name": "TypeError",
+              "index": 2,
+              "test": "Response has a error code.",
+              "message": "Cannot read property 'code' of undefined",
+              "stack": "TypeError: Cannot read property 'code' of undefined\n   at Object.eval sandbox-script.js:3:1)"
+            }
+          },
+          {
+            "assertion": "Response has a message.",
+            "skipped": false,
+            "error": {
+              "name": "TypeError",
+              "index": 3,
+              "test": "Response has a message.",
+              "message": "Cannot read property 'message' of undefined",
+              "stack": "TypeError: Cannot read property 'message' of undefined\n   at Object.eval sandbox-script.js:4:1)"
+            }
+          }
+        ]
+      }
+    ],
+    "transfers": {
+      "responseTotal": 45
+    },
+    "failures": [
+      {
+        "error": {
+          "name": "AssertionError",
+          "index": 1,
+          "test": "Response is a failure.",
+          "message": "expected undefined to deeply equal false",
+          "stack": "AssertionError: expected undefined to deeply equal false\n   at Object.eval sandbox-script.js:2:1)",
+          "checksum": "52272600d0837969c7d947de1d4c621f",
+          "id": "067f6fea-376f-4896-ae59-53b09f904857",
+          "timestamp": 1644428309169,
+          "stacktrace": [
+            {
+              "fileName": "sandbox-script.js",
+              "lineNumber": 2,
+              "functionName": "Object.eval",
+              "typeName": "Object",
+              "methodName": "eval",
+              "columnNumber": 1,
+              "native": false
+            }
+          ]
+        },
+        "at": "assertion:1 in test-script",
+        "source": {
+          "id": "5029ef2a-91bc-40a0-8bc0-2d9eefa91b64",
+          "name": "Import",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "import"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [
+                {
+                  "key": "email",
+                  "value": "dlenhart@gamil.com"
+                }
+              ],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "disabled": true,
+                  "key": "email",
+                  "value": "",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "c9a4b4d5-433b-4bc4-b398-90698a10a36c",
+                "type": "text/javascript",
+                "exec": [
+                  "const responseJson = pm.response.json();",
+                  "",
+                  "pm.test(\"Status code is 400 bad request - no file.\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is a failure.\", function () {",
+                  "    pm.expect(responseJson.success).to.eql(false);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a error code.\", function () {",
+                  "    pm.expect(responseJson.error.code).to.be.a('string');",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a message.\", function () {",
+                  "    pm.expect(responseJson.error.message).to.be.a('string');",
+                  "});"
+                ],
+                "_lastExecutionId": "59acab2a-d863-43cb-9c84-f103cd6ec92f"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "_": {
+            "postman_id": "9becb933-2264-45bb-b823-03cda61accf7"
+          },
+          "item": [
+            {
+              "id": "5029ef2a-91bc-40a0-8bc0-2d9eefa91b64",
+              "name": "Import",
+              "request": {
+                "url": {
+                  "protocol": "http",
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "v1",
+                    "import"
+                  ],
+                  "host": [
+                    "localhost"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "dlenhart@gamil.com"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "file",
+                      "type": "file",
+                      "src": []
+                    },
+                    {
+                      "disabled": true,
+                      "key": "email",
+                      "value": "",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "c9a4b4d5-433b-4bc4-b398-90698a10a36c",
+                    "type": "text/javascript",
+                    "exec": [
+                      "const responseJson = pm.response.json();",
+                      "",
+                      "pm.test(\"Status code is 400 bad request - no file.\", function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});",
+                      "",
+                      "pm.test(\"Response is a failure.\", function () {",
+                      "    pm.expect(responseJson.success).to.eql(false);",
+                      "});",
+                      "",
+                      "pm.test(\"Response has a error code.\", function () {",
+                      "    pm.expect(responseJson.error.code).to.be.a('string');",
+                      "});",
+                      "",
+                      "pm.test(\"Response has a message.\", function () {",
+                      "    pm.expect(responseJson.error.message).to.be.a('string');",
+                      "});"
+                    ],
+                    "_lastExecutionId": "59acab2a-d863-43cb-9c84-f103cd6ec92f"
+                  }
+                }
+              ]
+            }
+          ],
+          "event": [],
+          "variable": [],
+          "info": {
+            "_postman_id": "9becb933-2264-45bb-b823-03cda61accf7",
+            "name": "Api-Test-Tool",
+            "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+          }
+        },
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "a68c4d27-acf0-4b03-b899-59d11fe4775d",
+          "httpRequestId": "d156b85c-9471-43ab-9b94-e25c6e5d1171",
+          "scriptId": "c9a4b4d5-433b-4bc4-b398-90698a10a36c",
+          "execution": "59acab2a-d863-43cb-9c84-f103cd6ec92f"
+        }
+      },
+      {
+        "error": {
+          "name": "TypeError",
+          "index": 2,
+          "test": "Response has a error code.",
+          "message": "Cannot read property 'code' of undefined",
+          "stack": "TypeError: Cannot read property 'code' of undefined\n   at Object.eval sandbox-script.js:3:1)",
+          "checksum": "fd61757d8d19468600ed6f0b08bb79e2",
+          "id": "9cceb085-02a3-49d3-a74e-3892456c28fe",
+          "timestamp": 1644428309171,
+          "stacktrace": [
+            {
+              "fileName": "sandbox-script.js",
+              "lineNumber": 3,
+              "functionName": "Object.eval",
+              "typeName": "Object",
+              "methodName": "eval",
+              "columnNumber": 1,
+              "native": false
+            }
+          ]
+        },
+        "at": "assertion:2 in test-script",
+        "source": {
+          "id": "5029ef2a-91bc-40a0-8bc0-2d9eefa91b64",
+          "name": "Import",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "import"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [
+                {
+                  "key": "email",
+                  "value": "dlenhart@gamil.com"
+                }
+              ],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "disabled": true,
+                  "key": "email",
+                  "value": "",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "c9a4b4d5-433b-4bc4-b398-90698a10a36c",
+                "type": "text/javascript",
+                "exec": [
+                  "const responseJson = pm.response.json();",
+                  "",
+                  "pm.test(\"Status code is 400 bad request - no file.\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is a failure.\", function () {",
+                  "    pm.expect(responseJson.success).to.eql(false);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a error code.\", function () {",
+                  "    pm.expect(responseJson.error.code).to.be.a('string');",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a message.\", function () {",
+                  "    pm.expect(responseJson.error.message).to.be.a('string');",
+                  "});"
+                ],
+                "_lastExecutionId": "59acab2a-d863-43cb-9c84-f103cd6ec92f"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "_": {
+            "postman_id": "9becb933-2264-45bb-b823-03cda61accf7"
+          },
+          "item": [
+            {
+              "id": "5029ef2a-91bc-40a0-8bc0-2d9eefa91b64",
+              "name": "Import",
+              "request": {
+                "url": {
+                  "protocol": "http",
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "v1",
+                    "import"
+                  ],
+                  "host": [
+                    "localhost"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "dlenhart@gamil.com"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "file",
+                      "type": "file",
+                      "src": []
+                    },
+                    {
+                      "disabled": true,
+                      "key": "email",
+                      "value": "",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "c9a4b4d5-433b-4bc4-b398-90698a10a36c",
+                    "type": "text/javascript",
+                    "exec": [
+                      "const responseJson = pm.response.json();",
+                      "",
+                      "pm.test(\"Status code is 400 bad request - no file.\", function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});",
+                      "",
+                      "pm.test(\"Response is a failure.\", function () {",
+                      "    pm.expect(responseJson.success).to.eql(false);",
+                      "});",
+                      "",
+                      "pm.test(\"Response has a error code.\", function () {",
+                      "    pm.expect(responseJson.error.code).to.be.a('string');",
+                      "});",
+                      "",
+                      "pm.test(\"Response has a message.\", function () {",
+                      "    pm.expect(responseJson.error.message).to.be.a('string');",
+                      "});"
+                    ],
+                    "_lastExecutionId": "59acab2a-d863-43cb-9c84-f103cd6ec92f"
+                  }
+                }
+              ]
+            }
+          ],
+          "event": [],
+          "variable": [],
+          "info": {
+            "_postman_id": "9becb933-2264-45bb-b823-03cda61accf7",
+            "name": "Api-Test-Tool",
+            "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+          }
+        },
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "a68c4d27-acf0-4b03-b899-59d11fe4775d",
+          "httpRequestId": "d156b85c-9471-43ab-9b94-e25c6e5d1171",
+          "scriptId": "c9a4b4d5-433b-4bc4-b398-90698a10a36c",
+          "execution": "59acab2a-d863-43cb-9c84-f103cd6ec92f"
+        }
+      },
+      {
+        "error": {
+          "name": "TypeError",
+          "index": 3,
+          "test": "Response has a message.",
+          "message": "Cannot read property 'message' of undefined",
+          "stack": "TypeError: Cannot read property 'message' of undefined\n   at Object.eval sandbox-script.js:4:1)",
+          "checksum": "e51ce4c0d49feac6b28f4f5133e57ddf",
+          "id": "7fbc3c40-ea64-4992-ba66-a3b62cb15005",
+          "timestamp": 1644428309172,
+          "stacktrace": [
+            {
+              "fileName": "sandbox-script.js",
+              "lineNumber": 4,
+              "functionName": "Object.eval",
+              "typeName": "Object",
+              "methodName": "eval",
+              "columnNumber": 1,
+              "native": false
+            }
+          ]
+        },
+        "at": "assertion:3 in test-script",
+        "source": {
+          "id": "5029ef2a-91bc-40a0-8bc0-2d9eefa91b64",
+          "name": "Import",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "import"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [
+                {
+                  "key": "email",
+                  "value": "dlenhart@gamil.com"
+                }
+              ],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "disabled": true,
+                  "key": "email",
+                  "value": "",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "c9a4b4d5-433b-4bc4-b398-90698a10a36c",
+                "type": "text/javascript",
+                "exec": [
+                  "const responseJson = pm.response.json();",
+                  "",
+                  "pm.test(\"Status code is 400 bad request - no file.\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is a failure.\", function () {",
+                  "    pm.expect(responseJson.success).to.eql(false);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a error code.\", function () {",
+                  "    pm.expect(responseJson.error.code).to.be.a('string');",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a message.\", function () {",
+                  "    pm.expect(responseJson.error.message).to.be.a('string');",
+                  "});"
+                ],
+                "_lastExecutionId": "59acab2a-d863-43cb-9c84-f103cd6ec92f"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "_": {
+            "postman_id": "9becb933-2264-45bb-b823-03cda61accf7"
+          },
+          "item": [
+            {
+              "id": "5029ef2a-91bc-40a0-8bc0-2d9eefa91b64",
+              "name": "Import",
+              "request": {
+                "url": {
+                  "protocol": "http",
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "v1",
+                    "import"
+                  ],
+                  "host": [
+                    "localhost"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "dlenhart@gamil.com"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "file",
+                      "type": "file",
+                      "src": []
+                    },
+                    {
+                      "disabled": true,
+                      "key": "email",
+                      "value": "",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "c9a4b4d5-433b-4bc4-b398-90698a10a36c",
+                    "type": "text/javascript",
+                    "exec": [
+                      "const responseJson = pm.response.json();",
+                      "",
+                      "pm.test(\"Status code is 400 bad request - no file.\", function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});",
+                      "",
+                      "pm.test(\"Response is a failure.\", function () {",
+                      "    pm.expect(responseJson.success).to.eql(false);",
+                      "});",
+                      "",
+                      "pm.test(\"Response has a error code.\", function () {",
+                      "    pm.expect(responseJson.error.code).to.be.a('string');",
+                      "});",
+                      "",
+                      "pm.test(\"Response has a message.\", function () {",
+                      "    pm.expect(responseJson.error.message).to.be.a('string');",
+                      "});"
+                    ],
+                    "_lastExecutionId": "59acab2a-d863-43cb-9c84-f103cd6ec92f"
+                  }
+                }
+              ]
+            }
+          ],
+          "event": [],
+          "variable": [],
+          "info": {
+            "_postman_id": "9becb933-2264-45bb-b823-03cda61accf7",
+            "name": "Api-Test-Tool",
+            "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+          }
+        },
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "a68c4d27-acf0-4b03-b899-59d11fe4775d",
+          "httpRequestId": "d156b85c-9471-43ab-9b94-e25c6e5d1171",
+          "scriptId": "c9a4b4d5-433b-4bc4-b398-90698a10a36c",
+          "execution": "59acab2a-d863-43cb-9c84-f103cd6ec92f"
+        }
+      }
+    ],
+    "error": null
+  }
+}
