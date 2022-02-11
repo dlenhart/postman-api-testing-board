@@ -21,74 +21,72 @@ class ImportService
 
     public function import($request): JsonResponse
     {
-        if ($request->hasFile('file')) {
-            $results = File::extractRunInfo(
-                $request->file('file')
-            );
+        if (!$request->hasFile('file')) {
+            return response()->json([
+                'message' => Constants::NO_FILE_PROVIDED,
+                'status' => 'error',
+            ], 400);
+        }
 
-            if ($results['extension'] != 'json') {
-                return response()->json([
-                    'message' => Constants::INVALID_EXTENSION,
-                    'status' => 'error',
-                ], 400);
+        $results = File::extractRunInfo(
+            $request->file('file')
+        );
+
+        if ($results['extension'] != 'json') {
+            return response()->json([
+                'message' => Constants::INVALID_EXTENSION,
+                'status' => 'error',
+            ], 400);
+        }
+
+        $application_id = $this->findApplicationOrCreate($results['application']);
+        $decoded = $this->getFileContents($request->file('file'));
+
+        if (!isset($decoded['collection'])) {
+            return response()->json([
+                'message' => Constants::INVALID_FILE,
+                'status' => 'error',
+            ], 400);
+        }
+
+        $resultMessages = Parser::buildResults(
+            $decoded['collection']['item'],
+            $decoded
+        );
+
+        $result = $this->insertResults(
+            $application_id,
+            $results['branch'],
+            $resultMessages,
+            $decoded['run']
+        );
+
+        if ($result) {
+            if ($request->email) {
+                $this->sendResultsEmail($result, $request->email);
             }
 
-            $application_id = $this->findApplicationOrCreate($results['application']);
-            $file = file_get_contents($request->file('file'), "r") or die(Constants::UNABLE_TO_OPEN_FILE);
-            $encode = json_decode($file, true);
-
-            if (!isset($encode['collection'])) {
-                return response()->json([
-                    'message' => Constants::INVALID_FILE,
-                    'status' => 'error',
-                ], 400);
-            }
-
-            $resultMessages = Parser::buildResults(
-                $encode['collection']['item'],
-                $encode
-            );
-
-            $result = $this->insertResults(
-                $application_id,
-                $results['branch'],
-                $resultMessages,
-                $encode['run'],
-                $file
-            );
-
-            if ($result) {
-                if ($request->email) {
-                    $this->sendResultsEmail($result, $request->email);
-                }
-
-                $data = [
-                    'application'       => $results['application'],
-                    'application_id'    => $application_id,
-                    'send_to'           => $request->email ? $request->email : '',
-                    'result_id'         => $result
-                ];
-
-                return response()->json([
-                    'message' =>  Constants::IMPORT_SUCCESS,
-                    'status' => 'success',
-                    'data' => $data
-                ], 200);
-            }
+            $data = [
+                'application'       => $results['application'],
+                'application_id'    => $application_id,
+                'send_to'           => $request->email ? $request->email : '',
+                'result_id'         => $result
+            ];
 
             return response()->json([
-                'message' => Constants::IMPORT_FAILED,
-                'status' => 'error',
-            ], 500);
+                'message' =>  Constants::IMPORT_SUCCESS,
+                'status' => 'success',
+                'data' => $data
+            ], 200);
         }
 
         return response()->json([
-            'message' => Constants::FILE_NOT_FOUND,
+            'message' => Constants::IMPORT_FAILED,
             'status' => 'error',
-        ], 400);
+        ], 500);
     }
 
-    public function findApplicationOrCreate($application)
+    public function findApplicationOrCreate(string $application)
     {
         $app = $this->applicationRepository->getApplicationByName($application);
 
@@ -96,6 +94,12 @@ class ImportService
             return $app->id;
 
         return $this->applicationRepository->create($application);
+    }
+
+    private function getFileContents(string $file)
+    {
+        $results = file_get_contents($file, "r") or die(Constants::UNABLE_TO_OPEN_FILE);
+        return json_decode($results, true);
     }
 
     public function insertResults($application_id, $branch, $parsedResults, $stats)
@@ -140,7 +144,7 @@ class ImportService
         return false;
     }
 
-    public function sendResultsEmail($id, $email)
+    public function sendResultsEmail($id, $email): void
     {
         $result = Result::select(
             'id',
@@ -163,6 +167,7 @@ class ImportService
 
         $emails = [$email, 'drew_lenhart@sweetwater.com'];
 
-        Mail::to($emails)->send(new SendResults($result));
+        if($result)
+            Mail::to($emails)->send(new SendResults($result));
     }
 }
