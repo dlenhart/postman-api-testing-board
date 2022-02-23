@@ -18,6 +18,21 @@ class ResultsRepository implements  ResultsInterface
         ->first();
     }
 
+    public function countAppResults(int $id): int
+    {
+        return Result::SelectResults()
+        ->where('application_id', $id)
+        ->count();
+    }
+
+    public function countAppFailures(int $id): int
+    {
+        return Result::SelectResults()
+        ->where('application_id', $id)
+        ->where('assertions_failed', '>=', 1)
+        ->count();
+    }
+
     public function insertNewResult(
         int $application_id, 
         string $branch, 

@@ -13,4 +13,5 @@ class Constants
     const UNABLE_TO_OPEN_FILE = 'Unable to open file.';
     const NO_FILE_PROVIDED = 'No file provided.';
     const ERROR_INSERT = 'ERROR***** inserting record';
+    const APP_NOT_FOUND = 'Application not found.';
 }

@@ -3,11 +3,18 @@
 namespace App\Helpers;
 
 use App\Models\Result;
+use App\Repositories\ResultsRepository;
+use App\Repositories\ApplicationRepository;
 use App\Models\Application;
 use Carbon\Carbon;
 
 class Stats
 {
+    public function __construct()
+    {
+        $this->resultsRepository = new ResultsRepository;
+    }
+
     public static function get()
     {
         return new static;
