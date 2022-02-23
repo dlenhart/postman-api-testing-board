@@ -2,17 +2,16 @@
 
 namespace App\Helpers;
 
-use App\Models\Result;
 use App\Repositories\ResultsRepository;
 use App\Repositories\ApplicationRepository;
-use App\Models\Application;
-use Carbon\Carbon;
+
 
 class Stats
 {
     public function __construct()
     {
         $this->resultsRepository = new ResultsRepository;
+        $this->appRepository = new ApplicationRepository;
     }
 
     public static function get(): static
@@ -22,30 +21,25 @@ class Stats
 
     public function totalApps(): int
     {
-        return Application::all()->count();
+        return $this->appRepository->getTotalApplications();
     }
 
     public function totalTestsInTwentyFourHours(): int
     {
-        return Result::where('created_at', '>=', Carbon::now()->subDay())
-            ->count();
+        return $this->resultsRepository
+            ->countTotalTestsInTwentyFourHours();
     }
 
     public function totalResults(string $branch = 'development'): int
     {
-        return Result::SelectResults()
-            ->where('branch', '=', $branch)
-            ->where('created_at', '>=', Carbon::now()->subDay())
-            ->count();
+        return $this->resultsRepository
+            ->countTotalResultsByBranch($branch);
     }
 
     public function totalFailures(string $branch = 'development'): int
     {
-        return Result::SelectResults()
-            ->where('branch', '=', $branch)
-            ->where('assertions_failed', '>=', 1)
-            ->where('created_at', '>=', Carbon::now()->subDay())
-            ->count();
+        return $this->resultsRepository
+            ->countTotalFailures($branch);
     }
 
     public static function percent(int $failures, int $total): float

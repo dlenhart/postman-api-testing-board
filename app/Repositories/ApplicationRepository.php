@@ -12,6 +12,11 @@ class ApplicationRepository implements ApplicationInterface
         return Application::where('name', $name)->first();
     }
 
+    public function getTotalApplications(): int 
+    {
+        return Application::all()->count();
+    }
+
     public function create(string $name): Int
     {
         $app = new Application;

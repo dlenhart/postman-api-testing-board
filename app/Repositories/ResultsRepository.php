@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Constants;
+use Carbon\Carbon;
 use App\Models\Result;
 use Illuminate\Support\Facades\Log;
 use App\Repositories\Interfaces\ResultsInterface;
@@ -31,6 +32,29 @@ class ResultsRepository implements  ResultsInterface
         ->where('application_id', $id)
         ->where('assertions_failed', '>=', 1)
         ->count();
+    }
+
+    public function countTotalTestsInTwentyFourHours(): int
+    {
+        return Result::where('created_at', '>=', Carbon::now()->subDay())
+            ->count();
+    }
+
+    public function countTotalResultsByBranch(string $branch): int 
+    {
+        return Result::SelectResults()
+            ->where('branch', '=', $branch)
+            ->where('created_at', '>=', Carbon::now()->subDay())
+            ->count();
+    }
+
+    public function countTotalFailures(string $branch): int
+    {
+        return Result::SelectResults()
+            ->where('branch', '=', $branch)
+            ->where('assertions_failed', '>=', 1)
+            ->where('created_at', '>=', Carbon::now()->subDay())
+            ->count();
     }
 
     public function insertNewResult(
