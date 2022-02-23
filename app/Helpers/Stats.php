@@ -15,7 +15,7 @@ class Stats
         $this->resultsRepository = new ResultsRepository;
     }
 
-    public static function get()
+    public static function get(): static
     {
         return new static;
     }
@@ -31,7 +31,7 @@ class Stats
             ->count();
     }
 
-    public function totalResults($branch = 'development'): int
+    public function totalResults(string $branch = 'development'): int
     {
         return Result::SelectResults()
             ->where('branch', '=', $branch)
@@ -39,12 +39,23 @@ class Stats
             ->count();
     }
 
-    public function totalFailures($branch = 'development'): int
+    public function totalFailures(string $branch = 'development'): int
     {
         return Result::SelectResults()
             ->where('branch', '=', $branch)
             ->where('assertions_failed', '>=', 1)
             ->where('created_at', '>=', Carbon::now()->subDay())
             ->count();
+    }
+
+    public static function percent(int $failures, int $total): float
+    {
+        return round(100 - (($failures / $total) * 100), 2);
+    }
+
+    public static function failures(int $failures, string $branch): float
+    {
+        return round(100 -
+            (($failures == 0 ? 0 : $failures / Stats::get()->totalResults($branch)) * 100), 2);
     }
 }
