@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 class File
 {
-    public static function extractRunInfo($file)
+    public static function extractRunInfo($file): array
     {
         $f = explode('.', $file->getClientOriginalName());
 

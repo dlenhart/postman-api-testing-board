@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-/* Static methods for parsing newman json into html */
+/* Static methods for parsing Newman json into html */
 
 class Parser
 {
@@ -10,7 +10,7 @@ class Parser
     *   
     *  @return string
     */
-    public static function buildUrl($arr)
+    public static function buildUrl(array $arr): string
     {
         $host = '';
         $path = '';
@@ -40,15 +40,18 @@ class Parser
     *   
     *  @return string
     */
-    public static function buildAssertions($assertions)
+    public static function buildAssertions(array $assertions): string
     {
         $ass = '';
         foreach ($assertions as $assertion) {
             if (isset($assertion['error'])) {
-                $ass .= " -<strong>" . $assertion['assertion'] . " <span style='color: red'>(failed)</span></strong><br />";
-                $ass .= " --<strong style='color:red'>" . $assertion['error']['message'] . "</strong><br />";
+                $ass .= " -<strong>" . $assertion['assertion'] . 
+                    " <span style='color: red'>(failed)</span></strong><br />";
+                $ass .= " --<strong style='color:red'>" . 
+                    $assertion['error']['message'] . "</strong><br />";
             } else {
-                $ass .= " -" . $assertion['assertion'] . " <span style='color: green'>(pass)</span><br />";
+                $ass .= " -" . $assertion['assertion'] . 
+                    " <span style='color: green'>(pass)</span><br />";
             }
         }
 
@@ -59,7 +62,7 @@ class Parser
     *  arrays are fun
     *  @return string
     */
-    public static function buildResults($items, $encode): string
+    public static function buildResults(array $items, array $encode): string
     {
         $pos = 0;
         $resultsMessage = '';

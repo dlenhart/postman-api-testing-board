@@ -13,18 +13,18 @@ class Stats
         return new static;
     }
 
-    public function totalApps()
+    public function totalApps(): int
     {
         return Application::all()->count();
     }
 
-    public function totalTestsInTwentyFourHours()
+    public function totalTestsInTwentyFourHours(): int
     {
         return Result::where('created_at', '>=', Carbon::now()->subDay())
             ->count();
     }
 
-    public function totalResults($branch = 'development')
+    public function totalResults($branch = 'development'): int
     {
         return Result::SelectResults()
             ->where('branch', '=', $branch)
@@ -32,7 +32,7 @@ class Stats
             ->count();
     }
 
-    public function totalFailures($branch = 'development')
+    public function totalFailures($branch = 'development'): int
     {
         return Result::SelectResults()
             ->where('branch', '=', $branch)

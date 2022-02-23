@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\JsonResponse;
 use App\Repositories\ApplicationRepository;
+use App\Repositories\ResultsRepository;
 use App\Models\Result;
 use App\Mail\SendResults;
 use App\Helpers\File;
@@ -14,9 +15,12 @@ use App\Constants;
 
 class ImportService
 {
-    public function __construct(ApplicationRepository $applicationRepository)
-    {
+    public function __construct(
+        ApplicationRepository $applicationRepository,
+        //ResultsRepository $resultsRepository
+    ) {
         $this->applicationRepository = $applicationRepository;
+        //$this->resultsRepository = $resultsRepository;
     }
 
     public function import($request): JsonResponse
@@ -39,7 +43,9 @@ class ImportService
             ], 400);
         }
 
-        $application_id = $this->findApplicationOrCreate($results['application']);
+        $application_id = $this->findApplicationOrCreate(
+            $results['application']
+        );
         $decoded = $this->getFileContents($request->file('file'));
 
         if (!isset($decoded['collection'])) {
@@ -135,7 +141,7 @@ class ImportService
             $result->parsed_results             = $parsedResults;
             $result->save();
         } catch (\Exception $e) {
-            Log::error('ERROR***** inserting record, ' . $e);
+            Log::error(Constants::ERROR_INSERT . ', ' . $e);
         }
 
         if ($result)
@@ -146,28 +152,9 @@ class ImportService
 
     public function sendResultsEmail($id, $email): void
     {
-        $result = Result::select(
-            'id',
-            'application_id',
-            'branch',
-            'iterations_total',
-            'iterations_failed',
-            'requests_total',
-            'requests_failed',
-            'tests_total',
-            'tests_failed',
-            'assertions_total',
-            'assertions_failed',
-            'started',
-            'completed',
-            'duration',
-            'parsed_results',
-            'created_at'
-        )->where('id', $id)->with('application')->first();
+        //$result = $this->resultsRepository->getResultById($id);
 
-        $emails = [$email, 'drew_lenhart@sweetwater.com'];
-
-        if($result)
-            Mail::to($emails)->send(new SendResults($result));
+        // if ($result)
+        //     Mail::to($email)->send(new SendResults($result));
     }
 }
