@@ -45,6 +45,7 @@ class ImportService
         $application_id = $this->findApplicationOrCreate(
             $results['application']
         );
+        
         $decoded = $this->getFileContents($request->file('file'));
 
         if (!isset($decoded['collection'])) {
