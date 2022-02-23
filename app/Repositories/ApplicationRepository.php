@@ -7,7 +7,7 @@ use App\Repositories\Interfaces\ApplicationInterface;
 
 class ApplicationRepository implements ApplicationInterface
 {
-    public function getApplicationByName(String $name): ?Application
+    public function getApplicationByName(string $name): ?Application
     {
         return Application::where('name', $name)->first();
     }
