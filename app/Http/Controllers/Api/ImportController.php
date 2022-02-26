@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Services\ImportService;
 use App\Repositories\ApplicationRepository;
 use App\Repositories\ResultsRepository;
+use App\Http\Controllers\Controller;
 
 
 class ImportController extends Controller

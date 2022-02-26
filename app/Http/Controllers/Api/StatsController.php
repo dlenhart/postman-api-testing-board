@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Repositories\ResultsRepository;
 use App\Repositories\ApplicationRepository;
 use App\Services\StatsService;
+use App\Http\Controllers\Controller;
 
 
 class StatsController extends Controller

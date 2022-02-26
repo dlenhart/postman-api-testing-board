@@ -19,7 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::namespace('Api')->prefix('v1')->group(function() {
-    Route::post('import', [App\Http\Controllers\ImportController::class, 'import'])->name('import');
-    Route::get('/stats/{app}', [App\Http\Controllers\StatsController::class, 'countAppStats'])->name('stats');
-    Route::get('/stats', [App\Http\Controllers\StatsController::class, 'countOverallStats'])->name('stats.holistic');
+    Route::post('import', [App\Http\Controllers\Api\ImportController::class, 'import'])->name('import');
+    Route::get('/stats/{app}', [App\Http\Controllers\Api\StatsController::class, 'countAppStats'])->name('stats');
+    Route::get('/stats', [App\Http\Controllers\Api\StatsController::class, 'countOverallStats'])->name('stats.holistic');
 });
