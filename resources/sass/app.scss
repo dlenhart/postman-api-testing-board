@@ -1,0 +1,67 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Font-Awesome
+//@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+//@import "~@fortawesome/fontawesome-free/scss/regular";
+//@import "~@fortawesome/fontawesome-free/scss/solid";
+//@import "~@fortawesome/fontawesome-free/scss/brands";
+
+// Variables
+@import 'vars';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+
+.card {
+    &.card-primary > .card-header {
+      background-color: $blue;
+    }
+  
+    &.card-primary {
+      border-color: $blue;
+    }
+  
+    &.card-warning > .card-header {
+      background-color: $warning;
+    }
+  
+    &.card-warning {
+      border-color: $warning;
+    }
+  
+    &.card-danger > .card-header {
+      background-color: $red;
+    }
+  
+    &.card-danger {
+      border-color: $red;
+    }
+
+    &.card-secondary > .card-header {
+      background-color: $grey;
+    }
+  
+    &.card-secondary {
+      border-color: $grey;
+    }
+  }
+
+  .card > .card-body > .text-xl {
+    font-size: 60px;
+    font-weight: 200;
+  
+    &.primary {
+      color: $blue;
+    }
+  
+    &.warning {
+      color: $orange;
+    }
+  
+    &.danger {
+      color: $red;
+    }
+  }
+

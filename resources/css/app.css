@@ -1,0 +1,58 @@
+body {
+    background-color: #eef1f4 !important;
+}
+
+.terminal {
+    border-radius: 10px 10px;
+    padding: 10px;
+    color: white;
+    background-color: black !important;
+}
+
+.terminalLink:link, terminalLink:visited {
+    color: white !important;
+    text-decoration: underline !important;
+}
+
+.boldme {
+    font-weight: bold;
+}
+
+.btn-light {
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+
+.site_footer {
+    color: #666666;
+    font-size: 0.78571428571429rem;
+    padding: 20px;
+    text-align: center;
+    text-shadow: 0 1px 0 #fff;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .employee-photo.large {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+  }
+  
+.employee-photo {
+    width: 60px;
+    height: 60px;
+}
+
+.card > .card-body > .text-xl {
+  font-size: 40px !important;
+  font-weight: 200;
+}
+
+.text-small {
+  font-size: 10px 
+}
+
+.card > .card-header {
+  padding: 0.25rem 1.25rem !important;
+}
