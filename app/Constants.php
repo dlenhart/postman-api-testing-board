@@ -14,4 +14,7 @@ class Constants
     const NO_FILE_PROVIDED = 'No file provided.';
     const ERROR_INSERT = 'ERROR***** inserting record';
     const APP_NOT_FOUND = 'Application not found.';
+    const VALIDATION_ERRORS = 'Validation errors.';
+    const ERROR = 'Error';
+    const SUCCESS = 'Success';
 }

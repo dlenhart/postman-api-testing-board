@@ -1,79 +1,54 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
-use App\Models\Result;
-use App\Models\Application;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use App\Repositories\ResultsRepository;
+use App\Repositories\ApplicationRepository;
+use App\Services\DashboardService;
 
 class DashboardApiController extends Controller
 {
+    private $resultsRepository;
+    private $appRepository;
+    private $dashService;
+
+    public function __construct(
+        ResultsRepository $results,
+        ApplicationRepository $applications
+    ) {
+        $this->resultsRepository = $results;
+        $this->appRepository = $applications;
+
+        $this->dashService = new DashboardService(
+            $this->resultsRepository,
+            $this->appRepository
+        );
+    }
+
     public function results()
     {        
-        $results = Result::SelectResults()
-            ->with('application')
-            ->orderBy('created_at', 'DESC')
-            ->paginate(25);
-
-        return response()->json($results, 200);
+        return $this->dashService->results();
     }
 
     public function result(Request $request)
     {
-        $result = Result::findOrFail($request->id)
-            ->with('application')
-            ->first();
-        $result->makeHidden(['raw_data']);
-        
-        return responder()->success($result)->respond();
+        return $this->dashService->result($request);
     }
 
     public function delete(Request $request)
     {
-        $data = $request->all();
-
-        $validator = Validator::make( $data, [
-            'id'                   => 'required|numeric',
-        ] );
-
-        if ( $validator->fails() ) {
-            return responder()
-                ->error('validation', 'Validation errors')
-                ->respond();
-        }
-
-        $record = Result::findOrFail($request->id);        
-        $record->delete();
-            
-        return responder()->success()->respond();
+        return $this->dashService->delete($request);
     }
 
     public function listApps()
     {
-        $apps = Application::all();
-        return responder()->success($apps)->respond();
+        return $this->dashService->listApps();
     }
 
     public function application(Request $request)
     {
-        $app_id = Application::where('name', $request->app)->first();
-
-        if(!$app_id){
-            return responder()
-                ->error('not_found', 'Could not find application.')
-                ->respond();
-        }
-
-        $app = Result::SelectResults()
-            ->where('application_id', $app_id->id)
-            ->with('application')
-            ->orderBy('created_at', 'DESC')
-            ->paginate(25);
-
-        if($app) {
-            return response()->json($app, 200);
-        }
+        return $this->dashService->application($request);
     }
 }

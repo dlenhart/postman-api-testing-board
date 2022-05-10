@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Application;
 use App\Repositories\Interfaces\ApplicationInterface;
+use Illuminate\Database\Eloquent\Collection;
 
 class ApplicationRepository implements ApplicationInterface
 {
@@ -15,6 +16,11 @@ class ApplicationRepository implements ApplicationInterface
     public function getTotalApplications(): int 
     {
         return Application::all()->count();
+    }
+
+    public function getAllApplications(): Collection
+    {
+        return Application::all();
     }
 
     public function create(string $name): Int

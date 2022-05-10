@@ -27,7 +27,7 @@ class ImportService
         if (!$request->hasFile('file')) {
             return response()->json([
                 'message' => Constants::NO_FILE_PROVIDED,
-                'status' => 'error',
+                'status' => Constants::ERROR,
             ], 400);
         }
 
@@ -38,7 +38,7 @@ class ImportService
         if ($results['extension'] != 'json') {
             return response()->json([
                 'message' => Constants::INVALID_EXTENSION,
-                'status' => 'error',
+                'status' => Constants::ERROR,
             ], 400);
         }
 
@@ -51,7 +51,7 @@ class ImportService
         if (!isset($decoded['collection'])) {
             return response()->json([
                 'message' => Constants::INVALID_FILE,
-                'status' => 'error',
+                'status' => Constants::ERROR,
             ], 400);
         }
 
@@ -82,14 +82,14 @@ class ImportService
 
             return response()->json([
                 'message' =>  Constants::IMPORT_SUCCESS,
-                'status' => 'success',
+                'status' => Constants::SUCCESS,
                 'data' => $data
             ], 200);
         }
 
         return response()->json([
             'message' => Constants::IMPORT_FAILED,
-            'status' => 'error',
+            'status' => Constants::ERROR,
         ], 500);
     }
 

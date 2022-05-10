@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Repositories;
 
@@ -7,31 +7,52 @@ use Carbon\Carbon;
 use App\Models\Result;
 use Illuminate\Support\Facades\Log;
 use App\Repositories\Interfaces\ResultsInterface;
+use Illuminate\Database\Eloquent\Builder;
 
 
-class ResultsRepository implements  ResultsInterface
+class ResultsRepository implements ResultsInterface
 {
     public function getFirstResultById(int $id): ?Result
     {
         return Result::SelectResults()
-        ->where('id', $id)
-        ->with('application')
-        ->first();
+            ->where('id', $id)
+            ->with('application')
+            ->first();
+    }
+
+    public function getFirstResultByIdOrFail(int $id): Result
+    {
+        return Result::findOrFail($id);
+    }
+
+    public function selectAllwithApplication(): ?Builder
+    {
+        return Result::SelectResults()
+            ->with('application')
+            ->orderBy('created_at', 'DESC');
+    }
+
+    public function selectAllByApplicationId(int $id): ?Builder
+    {
+        return Result::SelectResults()
+            ->where('application_id', $id)
+            ->with('application')
+            ->orderBy('created_at', 'DESC');
     }
 
     public function countAppResults(int $id): int
     {
         return Result::SelectResults()
-        ->where('application_id', $id)
-        ->count();
+            ->where('application_id', $id)
+            ->count();
     }
 
     public function countAppFailures(int $id): int
     {
         return Result::SelectResults()
-        ->where('application_id', $id)
-        ->where('assertions_failed', '>=', 1)
-        ->count();
+            ->where('application_id', $id)
+            ->where('assertions_failed', '>=', 1)
+            ->count();
     }
 
     public function countTotalTestsInTwentyFourHours(): int
@@ -40,7 +61,7 @@ class ResultsRepository implements  ResultsInterface
             ->count();
     }
 
-    public function countTotalResultsByBranch(string $branch): int 
+    public function countTotalResultsByBranch(string $branch): int
     {
         return Result::SelectResults()
             ->where('branch', '=', $branch)
@@ -58,12 +79,11 @@ class ResultsRepository implements  ResultsInterface
     }
 
     public function insertNewResult(
-        int $application_id, 
-        string $branch, 
-        string $parsedResults, 
+        int $application_id,
+        string $branch,
+        string $parsedResults,
         array $stats
-    ): ?int
-    {
+    ): ?int {
         try {
             $result = new Result;
             $result->application_id             = $application_id;

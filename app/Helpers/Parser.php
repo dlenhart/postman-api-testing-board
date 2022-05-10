@@ -45,12 +45,12 @@ class Parser
         $ass = '';
         foreach ($assertions as $assertion) {
             if (isset($assertion['error'])) {
-                $ass .= " -<strong>" . $assertion['assertion'] . 
+                $ass .= " -<strong>" . $assertion['assertion'] .
                     " <span style='color: red'>(failed)</span></strong><br />";
-                $ass .= " --<strong style='color:red'>" . 
+                $ass .= " --<strong style='color:red'>" .
                     $assertion['error']['message'] . "</strong><br />";
             } else {
-                $ass .= " -" . $assertion['assertion'] . 
+                $ass .= " -" . $assertion['assertion'] .
                     " <span style='color: green'>(pass)</span><br />";
             }
         }

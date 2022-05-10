@@ -26,7 +26,7 @@ class StatsService
         if (!$app_id) {
             return response()->json([
                 'message' => Constants::APP_NOT_FOUND,
-                'status' => 'error',
+                'status' => Constants::ERROR,
             ], 404);
         }
 
