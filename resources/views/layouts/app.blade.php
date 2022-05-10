@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Sweetwater API Testing Results Dashboard') }}</title>
+    <title>{{ config('app.name', 'API Testing Results Dashboard') }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -16,7 +16,6 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
-    <link rel="icon" type="image/png" href="https://media.sweetwater.com/api/i/f-webp__ha-3aadaaee8bc333dc__hmac-cb9d37a688d682d0c26e077b4b7a29f5485446a8/app-icons/favicon-16x16.png.auto.webp" sizes="16x16">
 </head>
 <body style="background-image: url({{ asset('/images/patern.png') }}); background-position: center; background-repeat: repeat;">
     <div id="app">
@@ -65,7 +64,7 @@
                 </div>
             </div>
             <footer class="site_footer">
-                © 2021 Sweetwater Sound Inc. All rights reserved. 
+                © 2021 Drew D. Lenhart 
                 @auth
                     <a href="{{ route('logout') }}" onclick="event.preventDefault();
                         document.getElementById('footer-logout-form').submit();">Admin (Logout).</a>

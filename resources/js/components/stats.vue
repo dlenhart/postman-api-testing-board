@@ -7,7 +7,7 @@
                 title="Total Applications">
             <b-spinner v-if="statsLoading" style="width: 4rem; height: 4rem;" label="Large Spinner"></b-spinner>
             <span class="text-lg">
-                {{ stats.total_apps }}
+                {{ stats.total_apps_tested }}
                 <b-icon-exclamation-triangle-fill v-if="statsError" class="text-primary"></b-icon-exclamation-triangle-fill>
             </span>
         </metric-card>
@@ -18,7 +18,7 @@
                 title="Tests in 24 hours">
             <b-spinner v-if="statsLoading" style="width: 4rem; height: 4rem;" label="Large Spinner"></b-spinner>
             <span class="text-lg">
-                {{ stats.twenty_four }}
+                {{ stats.twenty_four_hours }}
                 <b-icon-exclamation-triangle-fill v-if="statsError" class="text-primary"></b-icon-exclamation-triangle-fill>
             </span>
         </metric-card>

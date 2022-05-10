@@ -46,12 +46,7 @@ class LoginController extends Controller
 
     protected function authenticated( Request $request, $user )
     {
-        return redirect( config( 'app.url' ) );
+        return redirect('/');
     }
-
-    // public function showLoginForm()
-    // {
-    //     //return view( 'login' );
-    // }
 
 }
