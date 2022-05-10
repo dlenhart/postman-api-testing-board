@@ -340,8 +340,6 @@ export default {
     },
 
     delayedLoading() {
-      // We like to see spinners, sometimes the page
-      // loads so fast, we dont get to see spinners!!
       setTimeout(() => (this.loading = false), 1000);
     },
 
